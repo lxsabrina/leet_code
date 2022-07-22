@@ -48,3 +48,21 @@ class Solution:
     
     def jump(self, nums: List[int]) -> int:
         return self.jump_v3(nums)
+    
+    
+def generate_test_case():
+    examples = list()
+    input = [2,3,1,1,4]
+    output =2 
+    examples.append([input,output])
+    return examples
+
+if __name__ == "__main__":
+    s = Solution()
+    ex = generate_test_case()
+    no = 0 
+    for input, output in ex:
+        no += 1
+        ans = s.jump(input)
+        if ans == output: print("case %d success" % no)
+        else:print("case %d Failed" % no)
