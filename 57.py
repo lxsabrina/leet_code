@@ -1,5 +1,11 @@
+
+from hashlib import new
+from operator import le
+from re import I
+
+
 class Solution:
-    def insert(self, intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:
+    def insert_v1(self, intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:
         intervals.append(newInterval)
         intervals = sorted(intervals, key = lambda x:x[0])
         print(intervals)
@@ -16,6 +22,30 @@ class Solution:
                 ans[-1][1]  = max(interval[1], ans[-1][1])
         return ans
 
+    def insert(self, intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]: 
+        #参考【代码随想录】的解决方案：https://leetcode.cn/problems/insert-interval/solution/57-cha-ru-qu-jian-mo-ni-cha-ru-xiang-jie-by-carlsu/
+        index ,ans  = 0, list()
+        #第一步，找到要合并区间，停止条件: x > newInterval[0] 
+        print(intervals)
+        print(newInterval)
+        while index < len(intervals) and  intervals[index][1] < newInterval[0]:    #先插入y之前的位置
+            ans.append(intervals[index])
+            index += 1
+        print("after step1 index %d" % index)
+        #第二步，找到合并区间，停止条件: y > newInterval[1] ,否则都在区间中
+        while index < len(intervals) and intervals[index][0] <= newInterval[1]:   #合并区间
+            newInterval[0] = min(newInterval[0], intervals[index][0])
+            newInterval[1] = max(newInterval[1], intervals[index][1])
+            index +=1
+        ans.append(newInterval)
+        print("after step2 index %d" % index)
+        #第三步：合并之后的区间
+        while index<len(intervals): 
+            ans.append(intervals[index])
+            index += 1
+        print("after step3 index %d" % index)  
+        print(ans)     
+        return ans
 
 def generate_test_case():
     examples = list()
