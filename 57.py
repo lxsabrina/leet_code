@@ -1,7 +1,4 @@
-
-from hashlib import new
-from operator import le
-from re import I
+import unittest
 
 
 class Solution:
@@ -66,6 +63,15 @@ def generate_test_case():
     #examples.append([input1,input2, output])
     return examples
 
+class Test(unittest.TestCase):
+    def Test1(self):
+        print("runnning")
+        s = Solution()
+        #input1,input2,output= [[1,3],[6,9]],[2,5],[[1,5],[6,9]]
+        input1,input2,output= [[1,3],[6,9]],[2,5],[[1,5],[6,10]]
+        ans = s.insert(input1, input2)
+        assert(ans == output)
+'''        
 if __name__ == "__main__":
     s,ex, no = Solution(), generate_test_case(),0
     for input1, input2, output in ex:
@@ -75,4 +81,7 @@ if __name__ == "__main__":
             print("\033[1;31;40m")
             print("case %d Failed" % no)
             print("\033[0m")
+'''
+if __name__ == "__main__":
+    unittest.main()
     
